@@ -1,43 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script>
-  window.location.replace("gate1.html");
-</script>
 
+  <div class="container">
+    <h1>Happy Birthday Anshika💗</h1>
+    <div class="greeting"></div>
 
-    <div class="container">
-        <h1>Happy Birthday Anshika💗</h1>
-        <div class="greeting"></div>
-        <button class="cta-button" id="enterWorldBtn">
-  Aage Chale...💕
-</button>
-    </div>
+    <button class="cta-button" id="enterWorldBtn">
+      Aage Chale...💕
+    </button>
+  </div>
 
-    <script src="script.js">
-        
-    </script>
-<audio id="bgMusic" loop>
-  <source src="music/birthday.mp3" type="audio/mpeg">
-</audio>
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="music/birthday.mp3" type="audio/mpeg">
+  </audio>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 
-<script>
-  const enterBtn = document.getElementById("enterWorldBtn");
-  if (enterBtn) {
-    enterBtn.addEventListener("click", () => {
-      window.location.href = "cause.html";  // ya jo next page tum chahte ho
-    });
-  }
-</script>
+  <script>
+    const enterBtn = document.getElementById("enterWorldBtn");
+    if (enterBtn) {
+      enterBtn.addEventListener("click", () => {
+        window.location.href = "cause.html";
+      });
+    }
+  </script>
+
 </body>
 </html>
+
