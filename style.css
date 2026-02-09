@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(-45deg, #fee9f7, #e8f5fe, #fef2e8, #f0ffe8);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+    overflow: hidden;
+    position: relative;
+}
+
+.cursor {
+    width: 20px;
+    height: 20px;
+    background: pink;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    transition: transform 0.2s;
+}
+
+.container {
+    text-align: center;
+    z-index: 1;
+}
+
+h1 {
+    font-size: 3.5rem;
+    color: #ff69b4;
+    text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+    margin-bottom: 2rem;
+    opacity: 0;
+}
+
+.greeting {
+    font-size: 1.5rem;
+    color: #8a2be2;
+    margin-bottom: 3rem;
+    min-height: 2em;
+}
+
+.cta-button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    background: linear-gradient(45deg, #ff69b4, #ff99cc);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+    opacity: 0;
+}
+
+.cta-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(255, 105, 180, 0.7);
+}
+
+.floating {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2rem; }
+    .greeting { font-size: 1.2rem; }
+    .cta-button { font-size: 1rem; }
+}
+/* Fix for Gate Pages Visibility */
+.gate-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gate-box {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 2.5rem 2rem;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(255, 105, 180, 0.25);
+  text-align: center;
+  max-width: 90%;
+}
+
+.gate-box h1 {
+  opacity: 1 !important;   /* important fix */
+}
+
+.gate-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 25px;
+}
+/* Gate page button visibility fix */
+.gate-box .cta-button {
+  opacity: 1 !important;
+  transform: none !important;
+}
+#runaway {
+  transition: left 0.15s ease, top 0.15s ease;
+}
+/* Disable hover scale for runaway button */
+#runaway:hover {
+  transform: none !important;
+  box-shadow: 0 0 15px rgba(255, 105, 180, 0.5); /* optional glow */
+}
+.runaway-wrap {
+  position: relative;
+  height: 140px;
+}
+/* Heart confetti on YES */
+#confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.confetti-heart {
+  position: absolute;
+  font-size: 22px;
+  animation: confettiFall 1.2s ease-out forwards;
+}
+
+@keyframes confettiFall {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(140px) scale(1.6);
+    opacity: 0;
+  }
+}
+/* Show normal cursor on gate pages for better navigation */
+.gate-page, 
+.gate-page * {
+  cursor: auto !important;
+}
+/* Global heart cursor */
+* {
+  cursor: none; /* hide default */
+}
+
+.heart-cursor {
+  position: fixed;
+  width: 28px;
+  height: 28px;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  left: 0;
+  top: 0;
+}
+
+.heart-cursor svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 8px rgba(255, 105, 180, 0.8));
+}
+/* Force normal cursor on all pages */
+html, body, * {
+  cursor: auto !important;
+}
+/* Make Play Music button clickable */
+#musicBtn {
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+
+

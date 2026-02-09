@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wait Wait 😏</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="gate-page">
+  <div class="gate-box">
+    <h1>Sach mein ready hona ? 🥺</h1>
+    <div class="gate-buttons">
+      <button class="cta-button yes" onclick="goYes()">Haaa 😌</button>
+      <button class="cta-button no" onclick="goNo()">Soch he rhi...😤</button>
+    </div>
+  </div>
+
+  <script>
+    function goYes() { window.location.href = "index.html"; }
+    function goNo() { window.location.href = "gate3.html"; }
+
+    gsap.from(".gate-box", { opacity: 0, y: 40, duration: 0.8, ease: "power3.out" });
+  </script>
+<audio id="bgMusic" loop>
+  <source src="music/birthday.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+</body>
+</html>

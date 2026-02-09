@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Now You Have No Choice 😏</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="gate-page">
+  <div class="gate-box">
+    <h1>Okay last chance ek baar aur soch lo..? 😘</h1>
+    <div class="gate-buttons runaway-wrap">
+  <button class="cta-button yes" onclick="goYes()">Haaa💖</button>
+  <button class="cta-button no" id="runaway">Naaa 😒</button>
+</div>
+<div id="confetti"></div>
+<p id="taunt" style="margin-top:12px; color:#ff69b4; font-weight:600; display:none;">
+  Bas karo Miss, Haaa hi dabana padega 😆
+</p>
+  </div>
+ <script>
+  function goYes() {
+    // Heart confetti blast
+    const confetti = document.getElementById("confetti");
+    confetti.innerHTML = "";
+    const hearts = ["💖","💕","💗","💓","💘"];
+
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+
+    for (let i = 0; i < 30; i++) {
+      const span = document.createElement("span");
+      span.className = "confetti-heart";
+      span.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+      span.style.left = cx + (Math.random() * 120 - 60) + "px";
+      span.style.top = cy + "px";
+      span.style.animationDelay = (Math.random() * 0.15) + "s";
+      confetti.appendChild(span);
+    }
+
+    // Glow YES button briefly
+    gsap.fromTo(".yes",
+      { boxShadow: "0 0 0 rgba(255,105,180,0)" },
+      { boxShadow: "0 0 30px rgba(255,105,180,0.9)", duration: 0.6, yoyo: true, repeat: 1 }
+    );
+
+    // Smooth transition to index
+    setTimeout(() => {
+      gsap.to("body", {
+        opacity: 0,
+        duration: 0.8,
+        onComplete: () => window.location.href = "index.html"
+      });
+    }, 900);
+  }
+
+  const runaway = document.getElementById("runaway");
+  const wrap = document.querySelector(".runaway-wrap");
+  const taunt = document.getElementById("taunt");
+
+  let runCount = 0;
+
+  wrap.style.position = "relative";
+  wrap.style.height = "140px";
+  runaway.style.position = "absolute";
+  runaway.style.left = "60%";
+  runaway.style.top = "40%";
+
+  function moveButton() {
+    const maxX = wrap.clientWidth - runaway.offsetWidth;
+    const maxY = wrap.clientHeight - runaway.offsetHeight;
+
+    runaway.style.left = Math.random() * maxX + "px";
+    runaway.style.top = Math.random() * maxY + "px";
+
+    runCount++;
+    if (runCount >= 3) {
+      taunt.style.display = "block";
+      gsap.to(".yes", {
+        boxShadow: "0 0 25px rgba(255,105,180,0.9)",
+        repeat: -1,
+        yoyo: true,
+        duration: 0.8
+      });
+    }
+  }
+
+  runaway.addEventListener("mouseenter", moveButton);
+  runaway.addEventListener("touchstart", (e) => { e.preventDefault(); moveButton(); });
+
+  gsap.from(".gate-box", { opacity: 0, y: 40, duration: 0.8, ease: "power3.out" });
+</script>
+<audio id="bgMusic" loop>
+  <source src="music/birthday.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+</body>
+</html>

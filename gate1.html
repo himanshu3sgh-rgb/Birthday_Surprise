@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>One Small Question 💌</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="gate-page">
+  <div class="gate-box">
+    <h1>Ek chhota sa sawaal…
+Kya meri Golgappa 💖 aaj thoda sa smile karne ke liye ready hai? 😌</h1>
+
+    <div class="gate-buttons">
+      <button class="cta-button yes" id="yesBtn">Haaa 😍</button>
+      <button class="cta-button no" id="noBtn">Soch Rhi.. 🙄</button>
+    </div>
+
+    <!-- Music Button (no inline onclick) -->
+    <button id="musicBtn" class="cta-button music-btn" style="margin-top:20px;">
+      ▶️ Play Music
+    </button>
+
+    <!-- Background Music (ONLY ONCE) -->
+    <audio id="bgMusic" loop>
+      <source src="music/birthday.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <script>
+    // Navigation ONLY on Yes/No buttons
+    document.getElementById("yesBtn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      window.location.href = "index.html";
+    });
+
+    document.getElementById("noBtn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      window.location.href = "gate2.html";
+    });
+
+    gsap.from(".gate-box", { opacity: 0, y: 40, duration: 0.8, ease: "power3.out" });
+  </script>
+
+  <!-- Common JS (music resume logic) -->
+  <script src="script.js">
+  // HARD BLOCK any accidental redirects when clicking music button
+  document.addEventListener("click", function (e) {
+    const musicBtn = document.getElementById("musicBtn");
+    if (musicBtn && (e.target === musicBtn || musicBtn.contains(e.target))) {
+      e.preventDefault();
+      e.stopImmediatePropagation();   // stops ALL handlers
+      e.stopPropagation();
+    }
+  }, true); // capture phase
+</script>
+</body>
+</html>

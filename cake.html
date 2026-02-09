@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cut the Cake 🎂</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== Cake Page Styles ===== */
+    .cake-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: visible;
+    }
+    .cake-wrap {
+      background: rgba(255,255,255,0.85);
+      border-radius: 25px;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 10px 30px rgba(255,105,180,0.25);
+      max-width: 90%;
+    }
+    .cake-title {
+      font-family: 'Bubblegum Sans', cursive;
+      font-size: 2.4rem;
+      color: #ff69b4;
+      margin-bottom: 1rem;
+    }
+    .cake {
+      position: relative;
+      width: 220px;
+      margin: 1.5rem auto;
+      cursor: pointer;
+    }
+    .plate {
+      width: 220px;
+      height: 18px;
+      background: #eee;
+      border-radius: 50%;
+      margin: 0 auto;
+      box-shadow: inset 0 -3px 6px rgba(0,0,0,0.15);
+    }
+    .layer {
+      width: 200px;
+      height: 60px;
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+      border-radius: 10px;
+      margin: 0 auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    .icing {
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      right: 10px;
+      height: 20px;
+      background: #fff;
+      border-radius: 10px;
+    }
+    .candles {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      position: absolute;
+      top: -45px;
+      width: 100%;
+    }
+    .candle {
+      width: 8px;
+      height: 30px;
+      background: #ff69b4;
+      border-radius: 4px;
+      position: relative;
+    }
+    .flame {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 14px;
+      background: radial-gradient(circle, #ffd700 0%, #ff8c00 60%, transparent 70%);
+      border-radius: 50%;
+      animation: flicker 0.8s infinite alternate;
+    }
+    @keyframes flicker {
+      from { transform: translateX(-50%) scale(1); opacity: 0.9; }
+      to   { transform: translateX(-50%) scale(1.2); opacity: 1; }
+    }
+    .knife {
+      width: 120px;
+      height: 6px;
+      background: #ccc;
+      border-radius: 4px;
+      margin: 20px auto 0;
+      transform: rotate(-20deg);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    }
+    .cut-hint {
+      font-size: 1rem;
+      color: #8a2be2;
+      margin-top: 10px;
+    }
+    .next-btn {
+  display: none;        /* cake cut ke baad hi show hoga */
+  margin-top: 24px;
+  position: relative;
+  z-index: 10;         /* bring button above everything */
+}
+
+
+    /* ===== Glitter Happy Birthday ===== */
+    .glitter-text {
+      display: none;
+      font-family: 'Bubblegum Sans', cursive;
+      font-size: 2.6rem;
+      margin-top: 1rem;
+      background: linear-gradient(45deg, #ff69b4, #ffd700, #ff99cc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: glitter 2s linear infinite;
+    }
+    @keyframes glitter {
+      0% { filter: drop-shadow(0 0 6px rgba(255,105,180,0.4)); }
+      50% { filter: drop-shadow(0 0 14px rgba(255,215,0,0.9)); }
+      100% { filter: drop-shadow(0 0 6px rgba(255,105,180,0.4)); }
+    }
+  </style>
+</head>
+<body class="cake-page">
+  <div class="cake-wrap">
+    <h1 class="cake-title">Ye rha Tumhara Fav____ Chocolate Cake 🎂</h1>
+
+    <div class="cake" id="cake">
+      <div class="candles">
+        <div class="candle"><div class="flame"></div></div>
+        <div class="candle"><div class="flame"></div></div>
+        <div class="candle"><div class="flame"></div></div>
+      </div>
+
+      <div class="icing"></div>
+      <div class="layer"></div>
+      <div class="plate"></div>
+    </div>
+
+    <div class="knife" id="knife"></div>
+    <p class="cut-hint">Chalo jaldi se tap/click krke Cake cut karo..🍰</p>
+
+    <!-- Glitter text appears after cut -->
+    <div class="glitter-text" id="glitterText">Happy Birthday to you..
+      Happy Birthday to you..
+      Happy Birthday dear Anshu..Happy Birthday to you.🎉</div>
+
+    <a href="last.html" class="cta-button next-btn" id="nextBtn"> Final Surprise Pe Chale..💖</a>
+  </div>
+
+  <script>
+    const cake = document.getElementById("cake");
+    const flames = document.querySelectorAll(".flame");
+    const knife = document.getElementById("knife");
+    const nextBtn = document.getElementById("nextBtn");
+    const glitterText = document.getElementById("glitterText");
+
+    let cut = false;
+
+    cake.addEventListener("click", () => {
+      if (cut) return;
+      cut = true;
+
+      // Blow candles
+      flames.forEach(f => f.style.display = "none");
+
+      // Knife animation
+      gsap.fromTo(knife, 
+        { x: -80, rotation: -20 }, 
+        { x: 80, rotation: 20, duration: 0.6, ease: "power2.out" }
+      );
+
+      // Cake bounce (cut feel)
+      gsap.to(".layer", {
+        scaleX: 0.9,
+        duration: 0.4,
+        yoyo: true,
+        repeat: 1
+      });
+
+      // Glitter text reveal
+      glitterText.style.display = "block";
+      gsap.from(glitterText, { scale: 0, opacity: 0, duration: 0.6, ease: "back.out" });
+
+      // Confetti hearts
+      for (let i = 0; i < 24; i++) {
+        const span = document.createElement("span");
+        span.textContent = ["💖","🎉","✨","💗"][Math.floor(Math.random()*4)];
+        span.style.position = "fixed";
+        span.style.left = Math.random() * window.innerWidth + "px";
+        span.style.top = Math.random() * window.innerHeight + "px";
+        span.style.fontSize = (Math.random() * 16 + 16) + "px";
+        span.style.pointerEvents = "none";
+        document.body.appendChild(span);
+
+        gsap.to(span, {
+          y: -120,
+          opacity: 0,
+          duration: 1.2,
+          onComplete: () => span.remove()
+        });
+      }
+
+      // Show next button
+      nextBtn.style.display = "inline-block";
+      nextBtn.style.opacity = "1";
+      nextBtn.style.pointerEvents = "auto";
+      gsap.from(nextBtn, { scale: 0, duration: 0.5, ease: "back.out" });
+    });
+  </script>
+<audio id="bgMusic" loop>
+  <source src="music/birthday.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+
+</body>
+</html>
