@@ -66,11 +66,12 @@ window.addEventListener("DOMContentLoaded", () => {
   const music = document.getElementById("bgMusic");
   const musicBtn = document.getElementById("musicBtn");
 
-  // Play button only exists on gate1
+  // Start music on gate1
   if (musicBtn && music) {
     musicBtn.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
+      music.volume = 0.6;
       music.play().then(() => {
         localStorage.setItem("musicPlaying", "true");
         localStorage.setItem("musicTime", music.currentTime || 0);
@@ -81,17 +82,29 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Resume music on ALL pages if user started it once
+  // Resume music on every page
   if (music && localStorage.getItem("musicPlaying") === "true") {
     const lastTime = localStorage.getItem("musicTime");
     if (lastTime) music.currentTime = parseFloat(lastTime);
-    music.play().catch(() => {});
+
+    // Try autoplay (works on desktop, some mobiles)
+    music.play().catch(() => {
+      // If autoplay blocked, resume on first user interaction
+      const resume = () => {
+        music.play().catch(() => {});
+        document.removeEventListener("click", resume);
+        document.removeEventListener("touchstart", resume);
+      };
+      document.addEventListener("click", resume, { once: true });
+      document.addEventListener("touchstart", resume, { once: true });
+    });
   }
 
-  // Save current time before leaving
+  // Save time before leaving page
   if (music) {
     window.addEventListener("beforeunload", () => {
       localStorage.setItem("musicTime", music.currentTime);
     });
   }
 });
+
